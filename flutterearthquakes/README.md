@@ -2,6 +2,4 @@
 
 
 
-## Diseño de UI/UX
-
 

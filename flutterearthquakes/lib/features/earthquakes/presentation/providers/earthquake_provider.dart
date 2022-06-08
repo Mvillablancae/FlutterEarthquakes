@@ -18,6 +18,7 @@ class EarthquakeProvider with ChangeNotifier {
     } else {
       try {
         _earthquakesList = await _api.getEarthquakes();
+        notifyListeners();
       } on Exception catch (exception) {
         print(exception.toString());
       } catch (error) {

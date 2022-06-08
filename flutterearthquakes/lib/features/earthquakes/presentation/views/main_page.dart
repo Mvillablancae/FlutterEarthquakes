@@ -32,12 +32,19 @@ class EarthquakeListPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  const Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Text(
-                        "Historial de sismos",
-                        style: itemTitleStyle,
-                      )),
+                  provider.earthquakeList.isEmpty
+                      ? const SizedBox(
+                          height: 0,
+                          width: 0,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            provider.isReversed
+                                ? "Antiguos  primero"
+                                : "Recientes primero",
+                            style: itemTitleStyle,
+                          )),
                   Flexible(
                     child: FutureBuilder(
                       future: provider.getEarthquakesList(),

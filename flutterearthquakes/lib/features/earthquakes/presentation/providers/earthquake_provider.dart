@@ -5,6 +5,7 @@ import '../../data/models/earthquake.dart';
 
 class EarthquakeProvider with ChangeNotifier {
   List<Earthquake> _earthquakesList = [];
+  
   final EarthquakeAPI _api = EarthquakeAPI();
 
   List<Earthquake> get earthquakeList => _earthquakesList;
@@ -26,16 +27,18 @@ class EarthquakeProvider with ChangeNotifier {
     }
   }
 
+  
+
   //TODO: Separar en capa de Dominio
   // Caso de uso 2
   Future<List<Earthquake>> reloadEarthquakesList() async {
-     try {
-        _earthquakesList = await _api.getEarthquakes();
-      } on Exception catch (exception) {
-        print(exception.toString());
-      } catch (error) {
-        print(error);
-      }
+    try {
+      _earthquakesList = await _api.getEarthquakes();
+    } on Exception catch (exception) {
+      print(exception.toString());
+    } catch (error) {
+      print(error);
+    }
     return _earthquakesList;
   }
 }

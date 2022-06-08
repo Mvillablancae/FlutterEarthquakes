@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterearthquakes/features/earthquakes/presentation/providers/earthquake_provider.dart';
+import 'package:flutterearthquakes/features/earthquakes/presentation/views/details_page.dart';
 import 'package:flutterearthquakes/features/earthquakes/presentation/views/main_page.dart';
 import 'package:flutterearthquakes/resources/colors.dart';
 import 'package:provider/provider.dart';

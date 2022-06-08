@@ -5,7 +5,7 @@ import '../../data/models/earthquake.dart';
 
 class EarthquakeProvider with ChangeNotifier {
   List<Earthquake> _earthquakesList = [];
-  
+  bool isReversed = false;
   final EarthquakeAPI _api = EarthquakeAPI();
 
   List<Earthquake> get earthquakeList => _earthquakesList;
@@ -27,7 +27,12 @@ class EarthquakeProvider with ChangeNotifier {
     }
   }
 
-  
+  // Caso de uso 1
+  void invertList() {
+    _earthquakesList = _earthquakesList.reversed.toList();
+    isReversed = !isReversed;
+    notifyListeners();
+  }
 
   //TODO: Separar en capa de Dominio
   // Caso de uso 2

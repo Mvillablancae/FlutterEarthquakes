@@ -28,45 +28,63 @@ class EarthquakeListPage extends StatelessWidget {
             body: SizedBox(
               width: sizingInformation.screenSize.width,
               height: sizingInformation.screenSize.height,
-              child: FutureBuilder(
-                future: provider.getEarthquakesList(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: provider.earthquakeList.length,
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        itemBuilder: (context, index) {
-                          return CustomListTile(
-                            provider: provider,
-                            sizingInformation: sizingInformation,
-                            sismo: provider.earthquakeList[index],
-                          );
-                        });
-                  } else if (snapshot.hasError) {
-                    return const Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  const Padding(
+                      padding: EdgeInsets.all(16.0),
                       child: Text(
-                        "Error",
-                        style: titleStyle,
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: SizedBox(
-                          height: 100,
-                          width: 100,
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          )),
-                    );
-                  }
-                },
+                        "Historial de sismos",
+                        style: itemTitleStyle,
+                      )),
+                  Flexible(
+                    child: FutureBuilder(
+                      future: provider.getEarthquakesList(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              itemCount: provider.earthquakeList.length,
+                              padding: EdgeInsets.only(
+                                  bottom: sizingInformation.screenSize.height *
+                                      0.08),
+                              itemBuilder: (context, index) {
+                                return CustomListTile(
+                                  provider: provider,
+                                  sizingInformation: sizingInformation,
+                                  sismo: provider.earthquakeList[index],
+                                );
+                              });
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            child: Text(
+                              "Error",
+                              style: titleStyle,
+                            ),
+                          );
+                        } else {
+                          return const Center(
+                            child: SizedBox(
+                                height: 100,
+                                width: 100,
+                                child: CircularProgressIndicator(
+                                  color: primaryColor,
+                                )),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
             floatingActionButton: FloatingActionButton(
-              child: Icon(Icons.arrow_downward),
+              child: Icon(provider.isReversed
+                  ? Icons.arrow_upward
+                  : Icons.arrow_downward),
               backgroundColor: primaryColor,
               onPressed: (() {
-                
+                provider.invertList();
               }),
             ));
       },
